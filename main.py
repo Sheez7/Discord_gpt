@@ -35,13 +35,15 @@ async def on_message(message: Message) -> None:
     if message.author == client.user:
         return
 
-    username: str = str(message.author)
-    user_message: str = message.content
-    channel: str = str(message.channel)
+    # Проверяем, был ли упомянут бот в сообщении
+    if client.user in message.mentions:
+        username: str = str(message.author)
+        user_message: str = message.content
+        channel: str = str(message.channel)
 
-    print(f'{username} said: "{user_message}" ({channel})')
+        print(f'{username} said: "{user_message}" ({channel})')
 
-    await send_message(message, message.content)
+        await send_message(message, message.content)
 
 def main():
     client.run(token=bot_token)
